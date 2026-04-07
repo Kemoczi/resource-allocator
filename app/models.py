@@ -1,9 +1,18 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Boolean, Column, Integer, String, UniqueConstraint
 from.database import Base
 
 
-class Item(Base):
-    __tablename__ = "items"
+class Resource(Base):
+    __tablename__ = "resources"
+
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    description = Column(String or None, index=True)
+    location = Column(String, nullable=False)
+    device = Column(String, nullable=False)
+    interface_id = Column(String, nullable=False)
+    phy_speed = Column(String, nullable=False)
+    optics = Column(String, nullable=False)
+    assigned = Column(Boolean, nullable=False, default=False)
+
+    __table__args = (
+        UniqueConstraint("device", "interface_id", name="uq_device_interface")
+    )

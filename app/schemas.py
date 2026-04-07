@@ -1,13 +1,21 @@
 from pydantic import BaseModel
 
-class ItemCreate(BaseModel):
-    name: str
-    description: str | None = None
+class ResourceCreate(BaseModel):
+    location: str
+    device: str
+    interface_id: str
+    phy_speed: str
+    optics: str
+    assigned: bool
 
-class Item(BaseModel):
+class Resource(BaseModel):
     id: int
-    name: str
-    description: str | None = None
+    location: str
+    device: str
+    interface_id: str
+    phy_speed: str
+    optics: str
+    assigned: bool
     class Config:
         # orm_mode = True
         from_attributes = True

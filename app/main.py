@@ -1,8 +1,7 @@
-from typing import List
 from sqlalchemy.orm import Session
-from fastapi import FastAPI, HTTPException, status, Depends
+from fastapi import Depends, FastAPI, HTTPException
 
-from. import models, schemas
+from . import models, schemas
 from.database import engine, SessionLocal, Base
 
 Base.metadata.create_all(bind=engine)
@@ -11,7 +10,7 @@ app = FastAPI()
 
 
 def get_db():
-    db = SessionLocal()
+    db: Session = SessionLocal()
     try:
         yield db
     finally:
@@ -19,52 +18,40 @@ def get_db():
 
 @app.get("/")
 def read_root():
-    return {"message": "Hello, this is FastAPI!"}
+    return {"message": "Hello, this is resource allocator! ;)"}
 
 
-@app.post("/items/", response_model=schemas.Item, status_code=status.HTTP_201_CREATED)
-def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
-    db_item = models.Item(name=item.name, description=item.description)
-    db.add(db_item)
+@app.post("/resources/assign-interface", response_model=schemas.Resource)
+def assign_interface(
+        location: str | None = None,
+        phy_speed: str | None = None,
+        optics: str | None = None,
+        db: Session = Depends(get_db)
+):
+    query = db.query(models.Resource).filter(models.Resource.assigned == False)
+
+    if not any([location, phy_speed, optics]):
+        raise HTTPException(status_code=400, detail="You must provide at least one resource parameter")
+
+    if location is not None:
+        query = query.filter(models.Resource.location == location)
+    if phy_speed is not None:
+        query = query.filter(models.Resource.phy_speed == phy_speed)
+    if optics is not None:
+        query = query.filter(models.Resource.optics == optics)
+
+    resource = query.first()
+
+    if not resource:
+        raise HTTPException(status_code=404, detail="No resources with specified parameters available")
+
+    resource.assigned = True
     db.commit()
-    db.refresh(db_item)
-    return db_item
+    db.refresh(resource)
+    return resource
 
 
-@app.get("/items/{item_id}", response_model=schemas.Item)
-def read_item(item_id: int, db: Session = Depends(get_db)):
-    item = db.query(models.Item).filter(models.Item.id == item_id).first()
-    if not item:
-        raise HTTPException(status_code=404, detail="Item not found")
-    return item
-
-
-@app.get("/items/", response_model=List[schemas.Item])
-def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    items = db.query(models.Item).offset(skip).limit(limit).all()
-    return items
-
-
-@app.put("/items/{item_id}", response_model=schemas.Item)
-def update_item(item_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)):
-    db_item = db.query(models.Item).filter(models.Item.id == item_id).first()
-    if not db_item:
-        raise HTTPException(status_code=404, detail="Item not found")
-
-    db_item.name = item.name
-    db_item.description = item.description
-
-    db.commit()
-    db.refresh(db_item)
-    return db_item
-
-
-@app.delete("/items/{item_id}")
-def delete_item(item_id: int, db: Session = Depends(get_db)):
-    db_item = db.query(models.Item).filter(models.Item.id == item_id).first()
-    if not db_item:
-        raise HTTPException(status_code=404, detail="Item not found")
-
-    db.delete(db_item)
-    db.commit()
-    return {"message": "Item deleted successfully"}
+@app.get("/resources/", response_model=list[schemas.Resource])
+def read_resources(db: Session = Depends(get_db)):
+    resources = db.query(models.Resource).all()
+    return resources
