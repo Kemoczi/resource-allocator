@@ -13,6 +13,6 @@ class Resource(BaseModel):
 
 
 class AssignInterfaceRequest(BaseModel):
-    location: str | None = None,
-    phy_speed: str | None = None,
+    location: str | None = None
+    phy_speed: str | None = None
     optics: str | None = None
