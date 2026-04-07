@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class Resource(BaseModel):
     id: int
@@ -8,9 +8,8 @@ class Resource(BaseModel):
     phy_speed: str
     optics: str
     assigned: bool
-    class Config:
-        # orm_mode = True
-        from_attributes = True
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class AssignInterfaceRequest(BaseModel):
