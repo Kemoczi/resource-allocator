@@ -6,11 +6,12 @@
 ![SQLite](https://img.shields.io/badge/SQLite-Database-003B57)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-Lightweight application for allocating network resources.  
+Simple backend application for network resource allocation training. 
 Built with **FastAPI**, **SQLAlchemy**, and **SQLite** provides a clean foundation for resource tracking, allocation workflows, and future API expansion.
 
-
-
+1. Resources are stored in pre-seeded database
+2. User makes API POST request to assign_interface endpoint with desired resource parameters inside request body
+3. App reserves first matching resource and sends it back to the client
 
 
 
