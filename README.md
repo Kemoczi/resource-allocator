@@ -11,7 +11,7 @@ Built with **FastAPI**, **SQLAlchemy**, and **SQLite** provides a clean foundati
 
 1. Resources are stored in pre-seeded database
 2. User makes API POST request to assign_interface endpoint with desired resource parameters inside request body
-3. App reserves first matching resource and sends it back to the client
+3. App reserves first unassigned matching resource and sends it back to the client
 
 
 
