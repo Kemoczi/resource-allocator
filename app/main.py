@@ -23,22 +23,20 @@ def read_root():
 
 @app.post("/resources/assign-interface", response_model=schemas.Resource)
 def assign_interface(
-        location: str | None = None,
-        phy_speed: str | None = None,
-        optics: str | None = None,
+        request: schemas.AssignInterfaceRequest,
         db: Session = Depends(get_db)
 ):
     query = db.query(models.Resource).filter(models.Resource.assigned == False)
 
-    if not any([location, phy_speed, optics]):
+    if not any([request.location, request.phy_speed, request.optics]):
         raise HTTPException(status_code=400, detail="You must provide at least one resource parameter")
 
-    if location is not None:
-        query = query.filter(models.Resource.location == location)
-    if phy_speed is not None:
-        query = query.filter(models.Resource.phy_speed == phy_speed)
-    if optics is not None:
-        query = query.filter(models.Resource.optics == optics)
+    if request.location is not None:
+        query = query.filter(models.Resource.location == request.location)
+    if request.phy_speed is not None:
+        query = query.filter(models.Resource.phy_speed == request.phy_speed)
+    if request.optics is not None:
+        query = query.filter(models.Resource.optics == request.optics)
 
     resource = query.first()
 
