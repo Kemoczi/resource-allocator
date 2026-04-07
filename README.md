@@ -21,10 +21,7 @@ Built with **FastAPI**, **SQLAlchemy**, and **SQLite** provides a clean foundati
 
 ### Prerequisites
 
-Make sure you have the following installed:
-
-- Python 3.10 or newer
-- pip
+- Python 3.10+
 
 ### 1. Clone the repository and enter the directory
 `git clone https://github.com/Kemoczi/resource-allocator.git`
