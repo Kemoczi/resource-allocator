@@ -1,5 +1,4 @@
 import requests
-from.conftest import ENDPOINT_URL
 import sys
 import subprocess
 import pytest
