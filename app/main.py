@@ -1,32 +1,23 @@
-from collections.abc import AsyncIterator
-from contextlib import asynccontextmanager
-
 from fastapi import Depends, FastAPI, HTTPException
-from sqlalchemy import inspect
+from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import Session
 
 from . import models, schemas
 from .database import SessionLocal
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-    db: Session = SessionLocal()
-    try:
-        if not inspect(db.bind).has_table("resources"):
-            raise RuntimeError("Database is not initialized. Run init_db.py first.")
-        yield
-    finally:
-        db.close()
-
-
-app = FastAPI(lifespan=lifespan)
+app = FastAPI()
 
 
 def get_db():
     db: Session = SessionLocal()
     try:
         yield db
+    except OperationalError:
+        print("\nERROR - Database is not initialized. Run python -m app.init_db\n")
+        raise HTTPException(
+            status_code=500,
+            detail="ERROR - Database is not initialized. Run python -m app.init_db"
+        )
     finally:
         db.close()
 
