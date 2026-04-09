@@ -1,22 +1,24 @@
+import time
+
 import requests
 import pytest
 
-# TODO: Maupa ze sleepem zeby strzelil timeout
-
 @pytest.mark.live
-def test_root_live(live_server):
-    response = requests.get(f"{live_server}/", timeout=2)
+class TestLiveServer:
 
-    assert response.status_code == 200
-    assert response.json() == {"message": "Hello, this is resource allocator! ;)"}
+    def test_root_live(self, live_server):
+        response = requests.get(f"{live_server}/", timeout=3)
+
+        assert response.status_code == 200
+        assert response.json() == {"message": "Hello, this is resource allocator! ;)"}
 
 
+    def test_resources(self, live_server):
+        start = time.perf_counter()
+        response = requests.get(f"{live_server}/resources/", timeout=3)
+        data = response.json()
+        elapsed = time.perf_counter() - start
 
-
-@pytest.mark.live
-def test_resources(live_server):
-    response = requests.get(f"{live_server}/resources/", timeout=2)
-    data = response.json()
-
-    assert response.status_code == 200
-    assert len(data) == 10
+        assert response.status_code == 200
+        assert len(data) == 10
+        assert elapsed < 2.0

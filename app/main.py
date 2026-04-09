@@ -1,12 +1,27 @@
-from sqlalchemy.orm import Session
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+
 from fastapi import Depends, FastAPI, HTTPException
+from sqlalchemy import inspect
+from sqlalchemy.orm import Session
 
 from . import models, schemas
-from.database import engine, SessionLocal, Base
+from .database import SessionLocal
 
-Base.metadata.create_all(bind=engine)
+from time import sleep
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    db: Session = SessionLocal()
+    try:
+        if not inspect(db.bind).has_table("resources"):
+            raise RuntimeError("Database is not initialized. Run init_db.py first.")
+        yield
+    finally:
+        db.close()
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 def get_db():
@@ -15,6 +30,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 @app.get("/")
 def read_root():
@@ -51,5 +67,6 @@ def assign_interface(
 
 @app.get("/resources/", response_model=list[schemas.Resource])
 def read_resources(db: Session = Depends(get_db)):
+    sleep(3)
     resources = db.query(models.Resource).all()
     return resources

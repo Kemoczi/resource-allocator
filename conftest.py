@@ -1,28 +1,31 @@
-import pytest
+import os
 import subprocess
 import sys
-import os
-import requests
 from pathlib import Path
 from time import sleep
+
+import pytest
+import requests
+from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from fastapi.testclient import TestClient
 
-from app.main import app, get_db
 from app.database import Base
-from app.init_db import resources
+from app.main import app, get_db
 from app.models import Resource
-from app.free_resources import free_resources
+from app.seed_resources import resources
 
-
-TEST_DB_URL = "sqlite:///./test_db.db"
-
+PROJECT_ROOT = Path(__file__).resolve().parent
 
 @pytest.fixture(scope="module")
 def testing_db_session():
+
+    db_path = PROJECT_ROOT / "test_db.db"
+    db_path.unlink(missing_ok=True)
+
+    db_url = f"sqlite:///{db_path}"
     engine = create_engine(
-        TEST_DB_URL,
+        url = db_url,
         connect_args={"check_same_thread": False},
     )
 
@@ -62,9 +65,13 @@ def test_client(testing_db_session):
 
 @pytest.fixture(scope="module")
 def live_server():
+    db_path = PROJECT_ROOT / "test_uvicorn.db"
+    db_path.unlink(missing_ok=True)
+
+    db_url = f"sqlite:///{db_path}"
+
     env = os.environ.copy()
-    env["DATABASE_URL"] = "sqlite:///./test_uvicorn.db"
-    PROJECT_ROOT = Path(__file__).resolve().parent
+    env["DATABASE_URL"] = db_url
 
     subprocess.run(
         [sys.executable, "-m", "app.init_db"],
@@ -111,7 +118,12 @@ def live_server():
             process.wait(timeout=5)
         except subprocess.TimeoutExpired:
             process.kill()
-        free_resources()
+        subprocess.run(
+            [sys.executable, "-m", "app.init_db"],
+            cwd=PROJECT_ROOT,
+            env=env,
+            check=True,
+        )
 
 
 

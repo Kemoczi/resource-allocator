@@ -1,9 +1,8 @@
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-import os
-import inspect
-print ('caller name:', inspect.stack()[1][3])
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./resources.db")
 
 engine = create_engine(
