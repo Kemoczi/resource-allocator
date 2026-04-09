@@ -1,13 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-
-DATABASE_URL = "sqlite:///./resources.db"
+import os
+import inspect
+print ('caller name:', inspect.stack()[1][3])
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./resources.db")
 
 engine = create_engine(
     DATABASE_URL,
     connect_args={"check_same_thread": False},
-    echo=True
+    echo=False
 )
 
 SessionLocal = sessionmaker(
