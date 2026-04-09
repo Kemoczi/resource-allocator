@@ -8,7 +8,6 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 from .database import SessionLocal
 
-from time import sleep
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
@@ -67,6 +66,5 @@ def assign_interface(
 
 @app.get("/resources/", response_model=list[schemas.Resource])
 def read_resources(db: Session = Depends(get_db)):
-    sleep(3)
     resources = db.query(models.Resource).all()
     return resources
