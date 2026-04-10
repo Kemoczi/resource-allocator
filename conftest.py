@@ -1,8 +1,9 @@
 import os
 import subprocess
 import sys
+import time
+from contextlib import contextmanager
 from pathlib import Path
-from time import sleep
 
 import pytest
 import requests
@@ -16,6 +17,7 @@ from app.models import Resource
 from app.seed_resources import resources
 
 PROJECT_ROOT = Path(__file__).resolve().parent
+
 
 @pytest.fixture(scope="module")
 def testing_db_session():
@@ -104,7 +106,7 @@ def live_server():
                 if response.status_code == 200:
                     break
             except requests.RequestException:
-                sleep(0.2)
+                time.sleep(0.2)
         else:
             stdout, stderr = process.communicate(timeout=1)
             raise RuntimeError(
@@ -126,7 +128,6 @@ def live_server():
         )
 
 
-
 @pytest.fixture
 def create_payload():
     def _create_payload(location=None, phy_speed=None, optics=None):
@@ -139,3 +140,14 @@ def create_payload():
             payload["optics"] = optics
         return payload
     return _create_payload
+
+
+@pytest.fixture
+def check_time():
+    @contextmanager
+    def _check_time(limit: float = 2.0):
+        start = time.perf_counter()
+        yield
+        elapsed = time.perf_counter() - start
+        assert elapsed < limit
+    return _check_time
