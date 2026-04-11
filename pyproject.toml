@@ -1,4 +1,5 @@
 [tool.pytest.ini_options]
 markers = [
-    "live: tests that start actual uvicorn server"
+    "live: tests that start actual uvicorn server",
+    "testclient: tests that use testclient utility"
     ]

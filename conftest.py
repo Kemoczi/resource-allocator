@@ -19,7 +19,7 @@ from app.seed_resources import resources
 PROJECT_ROOT = Path(__file__).resolve().parent
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def testing_db_session():
 
     db_path = PROJECT_ROOT / "test_db.db"
@@ -52,7 +52,7 @@ def testing_db_session():
         session.close()
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def test_client(testing_db_session):
     def override_get_db():
         yield testing_db_session
@@ -65,7 +65,7 @@ def test_client(testing_db_session):
     app.dependency_overrides.clear()
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def live_server():
     db_path = PROJECT_ROOT / "test_uvicorn.db"
     db_path.unlink(missing_ok=True)
