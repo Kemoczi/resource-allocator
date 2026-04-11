@@ -3,7 +3,7 @@ import requests
 
 
 @pytest.mark.testclient
-class TestClient:
+class TestWithClient:
 
     def test_wrong_query(self, test_client, create_payload):
         payload = create_payload(location="Olesnica", phy_speed="10G", optics="10GBASE-SR")

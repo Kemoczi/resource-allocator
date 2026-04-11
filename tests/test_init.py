@@ -2,7 +2,7 @@ import pytest
 import requests
 
 @pytest.mark.testclient
-class TestClient:
+class TestWithClient:
 
     def test_root(self, test_client):
         response = test_client.get("/")

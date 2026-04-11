@@ -3,7 +3,7 @@ import requests
 
 
 @pytest.mark.testclient
-class TestClient:
+class TestWithClient:
 
     def test_assign_if_by_speed(self, test_client, create_payload):
         payload = create_payload(phy_speed="100G")
