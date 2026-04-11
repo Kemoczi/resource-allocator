@@ -31,11 +31,12 @@ git clone https://github.com/Kemoczi/resource-allocator.git
 ```bash
 cd resource-allocator
 ```
-### 2. Create the virtual environment...
+### 2. Create virtual environment
 ```bash
 python -m venv venv
 ```
-... and activate it:
+### 3. Activate virtual environment
+
 **Windows:**
 ```bash
 venv\Scripts\activate.ps1
@@ -45,20 +46,20 @@ venv\Scripts\activate.ps1
 ```bash
 source venv/bin/activate
 ```
-### 3. Install dependencies
+### 4. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Initialize the database
+### 5. Initialize the database
 ```bash
 python app/init_db.py
 ```
-### 5. Run the application
+### 6. Run the application
 ```bash
 uvicorn app.main:app
 ```
-### 6. FastAPI Swagger UI will be available in browser:
+### 7. FastAPI Swagger UI will be available in browser:
 ```
 http://127.0.0.1:8000/docs
 ```
