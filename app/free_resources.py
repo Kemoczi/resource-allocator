@@ -1,3 +1,9 @@
+"""
+A module for freeing resources in a database.
+
+This module provides functionality to update and free resources marked
+as assigned in the database.
+"""
 from sqlalchemy.orm import Session
 
 from.database import SessionLocal
