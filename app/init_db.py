@@ -7,9 +7,9 @@ exist and seed the database with predefined resource data.
 
 from sqlalchemy.orm import Session
 
-from.database import Base, SessionLocal, engine
-from.models import Resource
-from.seed_resources import resources
+from .database import Base, SessionLocal, engine
+from .models import Resource
+from .seed_resources import resources
 
 
 def init_db() -> None:

@@ -1,6 +1,7 @@
 import pytest
 import requests
 
+
 @pytest.mark.testclient
 class TestWithClient:
 
@@ -8,7 +9,6 @@ class TestWithClient:
         response = test_client.get("/")
         assert response.status_code == 200
         assert response.json() == {"message": "Hello, this is resource allocator! ;)"}
-
 
     def test_resources(self, test_client):
         response = test_client.get("/resources/")
@@ -27,7 +27,6 @@ class TestLiveServer:
 
         assert response.status_code == 200
         assert response.json() == {"message": "Hello, this is resource allocator! ;)"}
-
 
     def test_resources(self, live_server, check_time):
         with check_time():

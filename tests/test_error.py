@@ -14,7 +14,6 @@ class TestWithClient:
         assert response.status_code == 404
         assert data == {"detail": "No resources with specified parameters available"}
 
-
     def test_empty_query(self, test_client, create_payload):
         payload = create_payload()
 

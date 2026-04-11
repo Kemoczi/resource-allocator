@@ -15,7 +15,6 @@ class TestWithClient:
         assert data["phy_speed"] == "100G"
         assert data["assigned"] is True
 
-
     def test_assign_if_by_speed_location(self, test_client, create_payload):
         payload = create_payload(location="London", phy_speed="100G")
 
@@ -28,7 +27,6 @@ class TestWithClient:
         assert data["optics"] == "100GBASE-LR"
         assert data["assigned"] is True
 
-
     def test_assign_if_by_speed_location_optics(self, test_client, create_payload):
         payload = create_payload(location="London", phy_speed="1G", optics="1GBASE-SR")
 
@@ -40,7 +38,6 @@ class TestWithClient:
         assert data["location"] == "London"
         assert data["optics"] == "1GBASE-SR"
         assert data["assigned"] is True
-
 
     def test_check_reserved(self, test_client, create_payload):
         param = "10GBASE-LR"
@@ -106,7 +103,6 @@ class TestLiveServer:
         assert data["location"] == "London"
         assert data["optics"] == "1GBASE-SR"
         assert data["assigned"] is True
-
 
     def test_check_reserved_live(self, live_server, create_payload, check_time):
         param = "10GBASE-LR"

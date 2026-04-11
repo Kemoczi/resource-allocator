@@ -1,5 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
+
 class Resource(BaseModel):
     id: int
     location: str

@@ -6,8 +6,9 @@ as assigned in the database.
 """
 from sqlalchemy.orm import Session
 
-from.database import SessionLocal
-from.models import Resource
+from .database import SessionLocal
+from .models import Resource
+
 
 def free_resources() -> None:
 
