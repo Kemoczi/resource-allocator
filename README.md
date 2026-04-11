@@ -218,7 +218,7 @@ Verifies cleanup/reset behavior:
 - cleanup is validated only for isolated API environment
 
 
-### Response time requirement (Live server only)
+### Response time requirement (Uvicorn only)
 
 The requirement states that the system should return either a usable interface or a suitable error in less than 2 seconds.
 
