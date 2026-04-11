@@ -27,7 +27,7 @@ def testing_db_session():
 
     db_url = f"sqlite:///{db_path}"
     engine = create_engine(
-        url = db_url,
+        url=db_url,
         connect_args={"check_same_thread": False},
     )
 
