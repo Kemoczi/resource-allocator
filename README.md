@@ -185,7 +185,7 @@ The same functional test scenarios are executed in two ways:
 
 The live server tests additionally validate response time using explicit timing checks.
 
-Test coverage is organized by test modules for clarity.
+Test coverage is organized by **test modules** for clarity:
 
 ### `tests/test_init.py`
 Verifies basic application startup and initialization:
