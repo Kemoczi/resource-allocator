@@ -31,11 +31,11 @@ git clone https://github.com/Kemoczi/resource-allocator.git
 ```bash
 cd resource-allocator
 ```
-### 2. Create and activate virtual environment
+### 2. Create the virtual environment...
 ```bash
 python -m venv venv
 ```
-
+... and activate it:
 **Windows:**
 ```bash
 venv\Scripts\activate.ps1
