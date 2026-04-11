@@ -32,7 +32,7 @@ class TestLiveServer:
         payload = create_payload(location="Olesnica", phy_speed="10G", optics="10GBASE-SR")
 
         with check_time():
-            response = requests.post(f"{live_server}/resources/assign-interface", json=payload)
+            response = requests.post(f"{live_server}/resources/assign-interface", json=payload, timeout=3)
         data = response.json()
 
         assert response.status_code == 404
@@ -42,7 +42,7 @@ class TestLiveServer:
         payload = create_payload()
 
         with check_time():
-            response = requests.post(f"{live_server}/resources/assign-interface", json=payload)
+            response = requests.post(f"{live_server}/resources/assign-interface", json=payload, timeout=3)
         data = response.json()
 
         assert response.status_code == 400

@@ -31,14 +31,14 @@ def testing_db_session():
         connect_args={"check_same_thread": False},
     )
 
-    TestingSessionLocal = sessionmaker(
+    testing_session_local = sessionmaker(
         autocommit=False,
         autoflush=False,
         bind=engine,
     )
 
     Base.metadata.create_all(bind=engine)
-    session = TestingSessionLocal()
+    session = testing_session_local()
 
     try:
         session.query(Resource).delete()

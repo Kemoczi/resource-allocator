@@ -12,12 +12,12 @@ def get_db():
     db: Session = SessionLocal()
     try:
         yield db
-    except OperationalError:
+    except OperationalError as exc:
         print("\nERROR - Database is not initialized. Run python -m app.init_db\n")
         raise HTTPException(
             status_code=500,
             detail="ERROR - Database is not initialized. Run python -m app.init_db"
-        )
+        ) from exc
     finally:
         db.close()
 
@@ -35,7 +35,9 @@ def assign_interface(
     query = db.query(models.Resource).filter(models.Resource.assigned == False)
 
     if not any([request.location, request.phy_speed, request.optics]):
-        raise HTTPException(status_code=400, detail="You must provide at least one resource parameter")
+        raise HTTPException(
+            status_code=400, detail="You must provide at least one resource parameter"
+        )
 
     if request.location is not None:
         query = query.filter(models.Resource.location == request.location)
@@ -47,7 +49,9 @@ def assign_interface(
     resource = query.first()
 
     if not resource:
-        raise HTTPException(status_code=404, detail="No resources with specified parameters available")
+        raise HTTPException(
+            status_code=404, detail="No resources with specified parameters available"
+        )
 
     resource.assigned = True
     db.commit()

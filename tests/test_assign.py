@@ -74,7 +74,7 @@ class TestLiveServer:
         payload = create_payload(phy_speed="100G")
 
         with check_time():
-            response = requests.post(f"{live_server}/resources/assign-interface", json=payload)
+            response = requests.post(f"{live_server}/resources/assign-interface", json=payload, timeout=3)
         data = response.json()
 
         assert response.status_code == 200
@@ -85,7 +85,7 @@ class TestLiveServer:
         payload = create_payload(location="London", phy_speed="100G")
 
         with check_time():
-            response = requests.post(f"{live_server}/resources/assign-interface", json=payload)
+            response = requests.post(f"{live_server}/resources/assign-interface", json=payload, timeout=3)
         data = response.json()
 
         assert response.status_code == 200
@@ -98,7 +98,7 @@ class TestLiveServer:
         payload = create_payload(location="London", phy_speed="1G", optics="1GBASE-SR")
 
         with check_time():
-            response = requests.post(f"{live_server}/resources/assign-interface", json=payload)
+            response = requests.post(f"{live_server}/resources/assign-interface", json=payload, timeout=3)
         data = response.json()
 
         assert response.status_code == 200
@@ -113,7 +113,7 @@ class TestLiveServer:
         payload = create_payload(optics=param)
 
         with check_time():
-            response = requests.get(f"{live_server}/resources/")
+            response = requests.get(f"{live_server}/resources/", timeout=3)
         data = response.json()
         num_of_resources = 0
         for item in data:
@@ -122,7 +122,7 @@ class TestLiveServer:
 
         for _ in range(num_of_resources):
             with check_time():
-                response = requests.post(f"{live_server}/resources/assign-interface", json=payload)
+                response = requests.post(f"{live_server}/resources/assign-interface", json=payload, timeout=3)
             data = response.json()
 
             assert response.status_code == 200
@@ -130,7 +130,7 @@ class TestLiveServer:
             assert data["assigned"] is True
 
         with check_time():
-            response = requests.post(f"{live_server}/resources/assign-interface", json=payload)
+            response = requests.post(f"{live_server}/resources/assign-interface", json=payload, timeout=3)
         data = response.json()
         assert response.status_code == 404
         assert data == {"detail": "No resources with specified parameters available"}

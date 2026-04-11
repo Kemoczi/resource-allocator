@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String, UniqueConstraint
+from sqlalchemy import Boolean, Column, Integer, String
 from.database import Base
 
 
@@ -12,7 +12,3 @@ class Resource(Base):
     phy_speed = Column(String, nullable=False)
     optics = Column(String, nullable=False)
     assigned = Column(Boolean, nullable=False, default=False)
-
-    __table__args = (
-        UniqueConstraint("device", "interface_id", name="uq_device_interface")
-    )
