@@ -71,6 +71,17 @@ def assign_interface(
 
 
 @app.get("/resources/", response_model=list[schemas.Resource])
-def read_resources(db: Session = Depends(get_db)):
+def read_all_resources(db: Session = Depends(get_db)):
     resources = db.query(models.Resource).all()
     return resources
+
+
+@app.get("/resources/free", response_model=list[schemas.Resource])
+def read_free_resources(db: Session = Depends(get_db)):
+    query = db.query(models.Resource).filter(models.Resource.assigned == False)
+    free_resources = query.all()
+    if not free_resources:
+        raise HTTPException(
+            status_code=404, detail="No free resources available"
+        )
+    return free_resources

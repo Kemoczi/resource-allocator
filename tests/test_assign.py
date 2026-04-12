@@ -77,6 +77,21 @@ class TestWithClient:
         assert response.status_code == 404
         assert data == {"detail": "No resources with specified parameters available"}
 
+    @pytest.mark.parametrize("field, value", [("location", "London")])
+    def test_resource_exhaustion(self, test_client, create_payload, field, value):
+        payload = create_payload(**{field: value})
+
+        while True:
+            response = test_client.post("/resources/assign-interface", json=payload)
+            if response.status_code == 404:
+                break
+            assert response.status_code == 200
+
+        response = test_client.get("/resources/free")
+        assert response.status_code == 404
+        data = response.json()
+        assert data == {"detail": "No free resources available"}
+
 
 @pytest.mark.live
 class TestLiveServer:
