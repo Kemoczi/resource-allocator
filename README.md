@@ -39,7 +39,7 @@ python -m venv venv
 
 **Windows:**
 ```bash
-venv\Scripts\activate.ps1
+venv\Scripts\activate.bat
 ```
 
 **Linux / macOS:**
@@ -53,7 +53,7 @@ pip install -r requirements.txt
 
 ### 5. Initialize the database
 ```bash
-python app/init_db.py
+python -m app.init_db
 ```
 ### 6. Run the application
 ```bash
