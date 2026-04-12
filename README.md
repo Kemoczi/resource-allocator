@@ -103,11 +103,22 @@ The **request body** may contain one or more of the following fields:
 
 At least one parameter must be provided.
 
-For example:
+Examples:
 ```json
 {
     "location": "London",
     "phy_speed": "10G",
+    "optics": "10GBASE-LR"
+}
+```
+```json
+{
+    "phy_speed": "10G",
+    "optics": "10GBASE-LR"
+}
+```
+```json
+{
     "optics": "10GBASE-LR"
 }
 ```
