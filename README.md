@@ -76,6 +76,10 @@ Simple health-style endpoint - returns welcome message.
 ### `GET /resources/`
 Returns the current resource inventory.
 
+### `GET /resources/free`
+Returns all currently unassigned resources.
+If no unassigned resources are available, the API returns 404 with a descriptive error message.
+
 ### `POST /resources/assign-interface`
 Assigns the first available resource matching the requested criteria.
 ### Initial Resources

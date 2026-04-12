@@ -5,6 +5,7 @@ from app.models import Resource
 
 @pytest.mark.testclient
 def test_check_cleanup(test_client, testing_db_session, create_payload):
+    # This test assumes the current seeded inventory consists entirely of London resources.
     param = "London"
     payload = create_payload(location=param)
 

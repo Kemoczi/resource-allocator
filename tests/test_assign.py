@@ -78,8 +78,12 @@ class TestWithClient:
         assert data == {"detail": "No resources with specified parameters available"}
 
     @pytest.mark.parametrize("field, value", [("location", "London")])
-    def test_resource_exhaustion(self, test_client, create_payload, field, value):
+    def test_seed_resources_exhaustion(self, test_client, create_payload, field, value):
+        # This test assumes the current seeded inventory consists entirely of London resources.
         payload = create_payload(**{field: value})
+
+        response = test_client.get("/resources/free")
+        assert response.status_code == 200
 
         while True:
             response = test_client.post("/resources/assign-interface", json=payload)
