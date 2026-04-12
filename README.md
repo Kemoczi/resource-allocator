@@ -233,7 +233,7 @@ Verifies error handling:
 
 Live server tests use more limited parameterization by design. The `live_server` fixture from `conftest.py` file has `scope="session"` to avoid restarting the Uvicorn subprocess for every test, which keeps the suite significantly faster. The trade-off is shared state between live tests, so overly broad parameterization could make tests influence one another.
 
-If stricter isolation is required, the `live_server` fixture can be changed to `scope="function"`, at the cost of slower execution due to repeated subprocess startup and database initialization.
+If you want to extend parametrization for live server test cases and/or stricter isolation is required, the `live_server` fixture can be changed to `scope="function"`, at the cost of slower execution due to repeated subprocess startup and database initialization.
 
 ### Additional cleanup utility test
 ### `tests/test_cleanup.py` (TestClient only)
