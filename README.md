@@ -164,6 +164,11 @@ If you want to see command output:
 pytest -v -s
 ```
 
+You may use NOX as well:
+```bash
+nox -s tests
+```
+
 ### Markers
 You may run only FastAPI TestClient isolated test cases:
 ```bash
