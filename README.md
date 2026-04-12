@@ -39,7 +39,7 @@ python -m venv venv
 
 **Windows:**
 ```bash
-venv\Scripts\activate.ps1
+venv\Scripts\activate.bat
 ```
 
 **Linux / macOS:**
