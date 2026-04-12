@@ -26,7 +26,7 @@ class TestLiveServer:
             response = requests.get(f"{live_server}/", timeout=3)
 
         assert response.status_code == 200
-        assert response.json() == {"message": "Hello, this is resource allocator! ;)"}
+        assert response.json() == {"message": "Hello, this is resource allocator!"}
 
     def test_resources(self, live_server, check_time):
         with check_time():
