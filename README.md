@@ -168,16 +168,15 @@ Verbose mode provides more readable look:
 ```bash
 pytest -v
 ```
+You may use NOX as well:
+```bash
+nox -s tests
+```
 
 If you want to see console output produced during test execution (for example by the live Uvicorn server), run:
 
 ```bash
 pytest -s
-```
-
-You may use NOX as well:
-```bash
-nox -s tests
 ```
 
 ### Markers
