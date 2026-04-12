@@ -169,7 +169,7 @@ Verbose mode provides more readable look:
 pytest -v
 ```
 
-If you want to see command output:
+If you want to see console output produced during test execution (for example by the live Uvicorn server), run:
 
 ```bash
 pytest -s
