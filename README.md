@@ -219,7 +219,7 @@ Verifies error handling:
 
 ### Parameterization notes
 
-`tests/test_assign.py` and `tests/test_error.py` use `pytest.mark.parametrize` where it improves readability and makes related cases easier to maintain.
+`tests/test_assign.py` and `tests/test_error.py` use `pytest.mark.parametrize` where it improves readability and makes related cases easier to customize and maintain.
 
 Live server tests use more limited parameterization by design. The `live_server` fixture has `scope="session"` to avoid restarting the Uvicorn subprocess for every test, which keeps the suite significantly faster. The trade-off is shared state between live tests, so overly broad parameterization could make tests influence one another.
 
