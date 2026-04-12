@@ -17,3 +17,5 @@ class AssignInterfaceRequest(BaseModel):
     location: str | None = None
     phy_speed: str | None = None
     optics: str | None = None
+
+    model_config = ConfigDict(extra="forbid")

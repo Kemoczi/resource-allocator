@@ -19,7 +19,7 @@ from app.seed_resources import resources
 PROJECT_ROOT = Path(__file__).resolve().parent
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def testing_db_session():
 
     db_path = PROJECT_ROOT / "test_db.db"
@@ -53,7 +53,7 @@ def testing_db_session():
         engine.dispose()
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def test_client(testing_db_session):
     def override_get_db():
         yield testing_db_session
