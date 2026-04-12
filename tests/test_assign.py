@@ -23,7 +23,6 @@ class TestWithClient:
         assert data[field] == value
         assert data["assigned"] is True
 
-
     @pytest.mark.parametrize("location, phy_speed", [("London", "100G"), ("London", "10G")])
     def test_assign_by_location_speed(self, test_client, create_payload, location, phy_speed):
         payload = create_payload(location=location, phy_speed=phy_speed)
@@ -35,7 +34,6 @@ class TestWithClient:
         assert data["location"] == location
         assert data["phy_speed"] == phy_speed
         assert data["assigned"] is True
-
 
     @pytest.mark.parametrize(
         "location, phy_speed, optics",
@@ -54,7 +52,6 @@ class TestWithClient:
         assert data["phy_speed"] == phy_speed
         assert data["optics"] == optics
         assert data["assigned"] is True
-
 
     @pytest.mark.parametrize("field, value", FIELD_VALUE)
     def test_check_reserved(self, test_client, create_payload, field, value):
@@ -100,7 +97,6 @@ class TestLiveServer:
         assert data[field] == value
         assert data["assigned"] is True
 
-
     @pytest.mark.parametrize("location, phy_speed", [("London", "100G")])
     def test_assign_by_speed_location_live(
             self, live_server, create_payload, location, phy_speed, check_time
@@ -117,7 +113,6 @@ class TestLiveServer:
         assert data["location"] == location
         assert data["phy_speed"] == phy_speed
         assert data["assigned"] is True
-
 
     @pytest.mark.parametrize("location, phy_speed, optics", [("London", "1G", "1GBASE-SR")])
     def test_assign_by_speed_location_optics_live(
@@ -136,7 +131,6 @@ class TestLiveServer:
         assert data["phy_speed"] == phy_speed
         assert data["optics"] == optics
         assert data["assigned"] is True
-
 
     @pytest.mark.parametrize("field, value", [("optics", "10GBASE-LR")])
     def test_check_reserved_live(self, live_server, create_payload, field, value, check_time):
