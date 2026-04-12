@@ -21,7 +21,7 @@ Built with **FastAPI**, **SQLAlchemy**, and **SQLite**
 
 ### Prerequisites
 
-- Python 3.10+
+- Python 3.10 - 3.14
 
 ### 1. Clone the repository...
 ```bash
