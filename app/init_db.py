@@ -4,7 +4,6 @@ Initialize the database with required tables and seed initial resource data.
 This module contains logic to create database schema if it does not already
 exist and seed the database with predefined resource data.
 """
-
 from sqlalchemy.orm import Session
 
 from .database import Base, SessionLocal, engine
