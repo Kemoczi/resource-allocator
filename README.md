@@ -53,7 +53,7 @@ pip install -r requirements.txt
 
 ### 5. Initialize the database
 ```bash
-python -m app/init_db.py
+python -m app.init_db
 ```
 ### 6. Run the application
 ```bash
