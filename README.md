@@ -80,7 +80,7 @@ Returns the current resource inventory.
 Assigns the first available resource matching the requested criteria.
 ### Initial Resources
 
-The database `resources.db` is seeded with the following resources sourced from `app/resources.py` file:
+The database `resources.db` is seeded with the following resources sourced from `app/seed_resources.py` file:
 
 | Location | Device | Interface ID | Physical Speed | Optics | Assigned |
 |----------|--------|--------------|----------------|--------|-------|
