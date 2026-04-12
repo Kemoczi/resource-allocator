@@ -33,7 +33,7 @@ cd resource-allocator
 ```
 ### 2. Create virtual environment
 ```bash
-python -m venv venv
+python3 -m venv venv
 ```
 ### 3. Activate virtual environment
 
@@ -53,7 +53,7 @@ pip install -r requirements.txt
 
 ### 5. Initialize the database
 ```bash
-python -m app.init_db
+python3 -m app.init_db
 ```
 ### 6. Run the application
 ```bash
@@ -149,7 +149,7 @@ In response API will send first unassigned resource which corresponds to set cri
 To restore all `resources.db` entries to the unassigned state outside the API itself, run:
 
 ```bash
-python -m app.free_resources
+python3 -m app.free_resources
 ```
 
 This was intentionally implemented as an external utility rather than as a public API endpoint, to keep cleanup separate from the application’s functional surface.
