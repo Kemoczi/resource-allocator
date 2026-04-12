@@ -213,8 +213,9 @@ Verifies resource assignment behavior:
 ### `tests/test_error.py`
 Verifies error handling:
 
-- request with no filtering criteria returns a validation error,
-- request with valid but non-matching criteria returns a suitable not-found error.
+- request with no filtering criteria returns a validation error (400),
+- request with invalid fieldname returns suitable validation error (422),
+- request with valid but non-matching criteria returns a suitable not-found error (404).
 
 ### Additional cleanup utility test
 ### `tests/test_cleanup.py` (TestClient only)
