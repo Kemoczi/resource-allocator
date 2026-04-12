@@ -35,7 +35,7 @@ def get_db():
 
 @app.get("/")
 def read_root():
-    return {"message": "Hello, this is resource allocator! ;)"}
+    return {"message": "Hello, this is resource allocator!"}
 
 
 @app.post("/resources/assign-interface", response_model=schemas.Resource)
