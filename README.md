@@ -161,7 +161,7 @@ pytest -v
 If you want to see command output:
 
 ```bash
-pytest -v -s
+pytest -s
 ```
 
 You may use NOX as well:
