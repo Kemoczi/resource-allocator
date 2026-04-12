@@ -1,6 +1,6 @@
  # Resource Allocator
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Python](https://img.shields.io/badge/Python-3.10--3.14-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-009688)
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.x-red)
 ![SQLite](https://img.shields.io/badge/SQLite-Database-003B57)
