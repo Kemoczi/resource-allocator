@@ -3,3 +3,6 @@ markers = [
     "live: tests that start actual uvicorn server",
     "testclient: tests that use testclient utility"
     ]
+
+[tool.behave]
+default_format = "plain"
