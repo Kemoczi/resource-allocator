@@ -23,3 +23,9 @@ def lint_tests(session):
 def lint_project_root(session):
     session.install('flake8')
     session.run("flake8", "conftest.py", "noxfile.py")
+
+
+@nox.session
+def lint_behave(session):
+    session.install('flake8')
+    session.run("flake8", "features/")

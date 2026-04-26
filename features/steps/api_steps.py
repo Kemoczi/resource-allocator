@@ -5,6 +5,7 @@ from behave import given, when, then
 
 BASE_URL = "http://127.0.0.1:8001"
 
+
 @given("assignment request is empty")
 def step_assignment_request_is_empty(context):
     context.payload = {}
@@ -21,6 +22,7 @@ def step_assignment_request_contains_table(context):
 
     for row in context.table:
         context.payload[row["field"]] = row["value"]
+
 
 @given('assignment request contains field "{field}" with value "{value}"')
 def step_assignment_request_contains_location(context, field, value):
@@ -43,7 +45,6 @@ def step_assign_all_resources(context, location):
             break
         assert context.response.status_code == 200
     context.payload = payload
-
 
 
 @when('user sends POST request to "{endpoint}"')

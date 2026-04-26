@@ -1,5 +1,6 @@
-import subprocess
 import sys
+import subprocess
+
 
 def before_scenario(context, scenario):
     subprocess.run(
