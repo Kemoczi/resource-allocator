@@ -29,6 +29,23 @@ def step_assignment_request_contains_location(context, field, value):
     }
 
 
+@given('all resources matching location "{location}" are already assigned')
+def step_assign_all_resources(context, location):
+    payload = {"location": location}
+
+    while True:
+        context.response = requests.post(
+            f"{BASE_URL}/resources/assign-interface",
+            json=payload,
+            timeout=2
+        )
+        if context.response.status_code == 404:
+            break
+        assert context.response.status_code == 200
+    context.payload = payload
+
+
+
 @when('user sends POST request to "{endpoint}"')
 def step_user_sends_assignment_request(context, endpoint):
     context.response = requests.post(

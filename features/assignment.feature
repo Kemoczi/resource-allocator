@@ -26,3 +26,10 @@ Feature: Resource allocation API
     And returned resource has field "phy_speed" with value "1G"
     And returned resource has field "optics" with value "1GBASE-SR"
     And returned resource is marked as assigned
+
+  Scenario: Cannot assign resource when matching pool is exhausted
+    Given all resources matching location "London" are already assigned
+    And assignment request contains field "location" with value "London"
+    When user sends POST request to "/resources/assign-interface"
+    Then response status code is 404
+    And response detail is "No resources with specified parameters available"
